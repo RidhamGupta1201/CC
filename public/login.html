@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Campus Connect - Login</title>
+  <link rel="stylesheet" href="css/login.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="top-nav">
+    <div class="brand">
+      <img
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZjPQz1dcLf6_hIaTUYB7T8ooueoneymMzA-NllNr8_w&s"
+        alt="logo"
+        class="logo"
+      />
+      <span class="brand-text">Campus Connect</span>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="main-layout">
+    <section class="quote-section">
+      <h2 class="quote-title">Done with couples connecting?</h2>
+      <p class="quote-subtitle">Let's try with peers connecting.</p>
+    </section>
+
+    <section class="login-section">
+      <div class="login-card">
+        <h1 class="login-title">READY TO CONNECT?</h1>
+        <p class="login-subtitle">Sign in to find your next campus collab.</p>
+
+        <!-- GOOGLE LOGIN -->
+        <button id="googleLogin" type="button">
+          <img
+            class="google-icon"
+            src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+            alt="Google icon"
+          />
+          <span>Connect with Google</span>
+        </button>
+
+        <div class="divider">
+          <span>or use your email</span>
+        </div>
+
+        <!-- (Email form UI only – logic not wired yet) -->
+        <form class="login-form">
+          <div class="input-group">
+            <label>Email</label>
+            <input type="email" placeholder="you@campus.edu" disabled />
+          </div>
+
+          <div class="input-group">
+            <label>Password</label>
+            <input type="password" placeholder="********" disabled />
+          </div>
+
+          <button type="button" class="primary-btn" disabled>
+            Login
+          </button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="js/auth.js"></script>
+</body>
+</html>

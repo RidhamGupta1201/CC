@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CampusConnect – Peer Matching</title>
+  <link rel="stylesheet" href="css/peers.css" />
+</head>
+<body>
+  <!-- NAVBAR -->
+  <header class="top-nav">
+    <div class="nav-left">
+      <span class="brand-text">CampusConnect</span>
+    </div>
+    <a href="profile.html" class="profile-btn">My Profile</a>
+  </header>
+
+  <main class="peer-container">
+
+    <!-- GEMINI INTRO -->
+    <section class="ai-card">
+      <h1>🤝 AI Peer Matching</h1>
+      <p>
+        Powered by Gemini. I help you find peers whose strengths complement your weaknesses
+        and who share similar interests.
+      </p>
+    </section>
+
+    <!-- MATCHED PROFILES -->
+    <section class="matches-section">
+      <h2>Suggested Peers</h2>
+
+      <div id="matchesGrid" class="matches-grid">
+        <!-- Profiles injected by JS -->
+      </div>
+    </section>
+
+    <!-- GEMINI CHAT -->
+    <section class="chat-section">
+      <h2>Refine Your Match</h2>
+      <div class="chat-box">
+        <div id="chatMessages" class="chat-messages"></div>
+
+        <div class="chat-input">
+          <input
+            type="text"
+            id="chatInput"
+            placeholder="e.g. I want someone good at backend and likes hackathons"
+          />
+          <button id="sendBtn">Ask Gemini</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script type="module" src="js/peers.js"></script>
+</body>
+</html>

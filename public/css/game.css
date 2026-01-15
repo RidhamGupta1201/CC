@@ -1,0 +1,283 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+    "Inter", sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at top, #1f2933 0, #020617 55%, #000 100%);
+  color: #e5e7eb;
+}
+
+/* ===== Dashboard Layout ===== */
+.dashboard {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1.4fr);
+  gap: 2.5rem;
+  width: min(1100px, 100%);
+  padding: 2.5rem 3rem;
+  border-radius: 24px;
+  background: rgba(15, 23, 42, 0.88);
+  box-shadow:
+    0 24px 80px rgba(0, 0, 0, 0.85),
+    0 0 0 1px rgba(148, 163, 184, 0.18);
+  backdrop-filter: blur(26px) saturate(160%);
+}
+
+/* ===== Profile Card ===== */
+.profile-card {
+  background: radial-gradient(circle at top left, #0f172a, #020617);
+  border-radius: 20px;
+  padding: 1.8rem 1.6rem 1.9rem;
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.7),
+    0 0 0 1px rgba(148, 163, 184, 0.26);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+#avatar {
+  width: 88px;
+  height: 88px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #38bdf8, #a855f7);
+  box-shadow:
+    0 0 0 4px rgba(15, 23, 42, 1),
+    0 18px 40px rgba(15, 23, 42, 0.9);
+}
+
+#username {
+  font-size: 1.35rem;
+  letter-spacing: 0.03em;
+}
+
+#level {
+  font-size: 0.9rem;
+  color: #9ca3af;
+}
+
+/* XP bar */
+.xp-bar {
+  width: 100%;
+  margin-top: 0.8rem;
+  height: 9px;
+  border-radius: 999px;
+  background: #020617;
+  overflow: hidden;
+  position: relative;
+}
+
+#xpFill {
+  height: 100%;
+  width: 0%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #22c55e, #a3e635);
+  box-shadow: 0 0 12px rgba(34, 197, 94, 0.8);
+  transition: width 0.35s ease-out;
+}
+
+.profile-card p span#xp {
+  font-weight: 600;
+  color: #e5e7eb;
+}
+
+/* ===== Actions Column ===== */
+.actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.2rem 1.6rem;
+  align-content: flex-start;
+}
+
+/* ===== Cards ===== */
+.card {
+  background: radial-gradient(circle at top left, #020617, #020617 40%, #020617);
+  border-radius: 18px;
+  padding: 1.2rem 1.25rem 1.35rem;
+  box-shadow:
+    0 16px 36px rgba(0, 0, 0, 0.7),
+    0 0 0 1px rgba(75, 85, 99, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: radial-gradient(
+    circle at top right,
+    rgba(59, 130, 246, 0.14),
+    transparent 60%
+  );
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.card h3 {
+  position: relative;
+  margin-bottom: 0.65rem;
+  font-size: 0.98rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #9ca3af;
+}
+
+/* ===== Inputs ===== */
+input {
+  width: 100%;
+  border-radius: 999px;
+  border: 1px solid rgba(75, 85, 99, 0.8);
+  background: rgba(15, 23, 42, 0.85);
+  padding: 0.65rem 0.95rem;
+  color: #e5e7eb;
+  outline: none;
+  font-size: 0.9rem;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease,
+    background 0.18s ease, transform 0.08s ease;
+}
+
+input::placeholder {
+  color: #6b7280;
+}
+
+input:focus {
+  border-color: #38bdf8;
+  box-shadow:
+    0 0 0 1px rgba(56, 189, 248, 0.6),
+    0 0 0 10px rgba(56, 189, 248, 0.06);
+  background: rgba(15, 23, 42, 0.95);
+  transform: translateY(-1px);
+}
+
+/* Submit button (fix id in HTML to id="submit") */
+input[type="submit"],
+#submit {
+  margin-top: 1.4rem;
+  width: 100%;
+  border-radius: 999px;
+  border: none;
+  padding: 0.7rem 0.95rem;
+  background: linear-gradient(135deg, #38bdf8, #a855f7);
+  color: #0b1220;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow:
+    0 20px 40px rgba(15, 23, 42, 0.95),
+    0 0 20px rgba(56, 189, 248, 0.7);
+  transition: transform 0.12s ease, box-shadow 0.12s ease,
+    filter 0.12s ease, background-position 0.2s ease;
+  background-size: 150% 150%;
+}
+
+input[type="submit"]:hover,
+#submit:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.08);
+  box-shadow:
+    0 26px 50px rgba(0, 0, 0, 0.95),
+    0 0 26px rgba(168, 85, 247, 0.7);
+  background-position: 100% 0;
+}
+
+input[type="submit"]:active,
+#submit:active {
+  transform: translateY(1px) scale(0.99);
+  box-shadow:
+    0 16px 34px rgba(0, 0, 0, 0.9),
+    0 0 16px rgba(56, 189, 248, 0.55);
+}
+
+/* ===== Buttons in cards ===== */
+button {
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  background: radial-gradient(circle at top left, #111827, #020617);
+  color: #e5e7eb;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  margin-top: 0.6rem;
+  margin-right: 0.4rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: transform 0.12s ease, box-shadow 0.12s ease,
+    background 0.18s ease, border-color 0.18s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  border-color: #38bdf8;
+  background: radial-gradient(circle at top left, #0b1120, #020617);
+  box-shadow:
+    0 12px 26px rgba(0, 0, 0, 0.7),
+    0 0 12px rgba(56, 189, 248, 0.6);
+}
+
+button:active {
+  transform: translateY(1px) scale(0.98);
+  box-shadow:
+    0 8px 18px rgba(0, 0, 0, 0.8),
+    0 0 10px rgba(56, 189, 248, 0.4);
+}
+
+/* ===== Tags (hobbies, strengths, needs) ===== */
+.tag-container {
+  margin-top: 0.7rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.tag-container .tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  background: radial-gradient(circle at top left, #0f172a, #020617);
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  color: #e5e7eb;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.9);
+}
+
+.tag-container .tag span.remove {
+  font-size: 0.85em;
+  cursor: pointer;
+  color: #9ca3af;
+  transition: color 0.18s ease, transform 0.1s ease;
+}
+
+.tag-container .tag span.remove:hover {
+  color: #f97316;
+  transform: scale(1.15);
+}
+
+/* ===== Small polish ===== */
+.profile-card p {
+  font-size: 0.85rem;
+  color: #9ca3af;
+}
+
+@media (max-width: 840px) {
+  .dashboard {
+    grid-template-columns: 1fr;
+    padding: 1.8rem 1.4rem;
+    border-radius: 0;
+  }
+
+  .profile-card {
+    order: -1;
+  }
+}

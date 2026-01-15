@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Campus Connect | Profile</title>
+  <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="logo">CampusConnect</div>
+    <div class="nav-right">
+      <span class="level">Level 1</span>
+      <img id="profilePicNav" src="https://i.pravatar.cc/40" />
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="card profile-card">
+      <h2>🎯 Your Profile</h2>
+
+      <p><strong>Name:</strong> <span id="name"></span></p>
+      <p><strong>College:</strong> <span id="college"></span></p>
+      <p><strong>Age:</strong> <span id="age"></span></p>
+
+      <h4>💪 Strengths</h4>
+      <div id="strengths" class="tag-list"></div>
+
+      <h4>🎯 Hobbies</h4>
+      <div id="hobbies" class="tag-list"></div>
+
+      <h4>⚠️ Weakness</h4>
+      <div id="weaknesses" class="tag-list"></div>
+    </div>
+  </main>
+
+  <script type="module" src="js/profile.js"></script>
+</body>
+</html>

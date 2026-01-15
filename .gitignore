@@ -1,0 +1,18 @@
+# Firebase config (important)
+js/firebase.js
+
+# Node (if added later)
+node_modules/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# VS Code settings
+.vscode/
+
+# Logs
+*.log
+
+# Gemini API Key
+backend/.env

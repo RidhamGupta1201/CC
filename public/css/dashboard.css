@@ -1,0 +1,146 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #0f172a, #020617);
+  color: white;
+}
+
+/* NAVBAR */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 16px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(2,6,23,0.7);
+  backdrop-filter: blur(12px);
+}
+
+.logo {
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.nav-right img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #3b82f6;
+}
+
+/* MAIN */
+.container {
+  padding-top: 120px;
+  display: flex;
+  justify-content: center;
+}
+
+.profile-card {
+  width: 420px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 20px;
+  padding: 30px;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 0 40px rgba(59,130,246,0.25);
+  animation: fadeUp 0.8s ease;
+}
+
+.profile-card h2 {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+/* INPUTS */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.field label {
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+.field input,
+.tag-input input {
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  background: rgba(255,255,255,0.08);
+  color: white;
+}
+
+/* TAG SYSTEM */
+.tag-section {
+  margin-bottom: 18px;
+}
+
+.tag-input {
+  display: flex;
+  gap: 10px;
+}
+
+.tag-input button {
+  width: 40px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  background: linear-gradient(135deg, #22c55e, #3b82f6);
+  color: black;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.tag {
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  background: rgba(59,130,246,0.25);
+  border: 1px solid rgba(59,130,246,0.5);
+}
+
+/* SAVE BUTTON */
+.save-btn {
+  margin-top: 10px;
+  padding: 14px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  background: linear-gradient(90deg, #22c55e, #3b82f6);
+  color: black;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
