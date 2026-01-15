@@ -1,32 +1,86 @@
-import { rawListeners } from "node:cluster";
-import { getRawAsset } from "node:sea";
-import { getCACertificates } from "node:tls";
+/* ===============================
+   IMPORTS (BROWSER SAFE)
+================================ */
+import { auth, db } from "./firebase.js";
+import {
+  collection,
+  getDocs,
+  doc,
+  getDoc
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import {
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-/* ---------- DOM ELEMENTS ---------- */
+/* ===============================
+   DOM ELEMENTS
+================================ */
 const matchesGrid = document.getElementById("matchesGrid");
 const chatMessages = document.getElementById("chatMessages");
 const chatInput = document.getElementById("chatInput");
 const sendBtn = document.getElementById("sendBtn");
 
-/* ---------- FETCH FROM BACKEND ---------- */
-async function fetchPeerMatches(query = "") {
+/* ===============================
+   STATE
+================================ */
+let currentUserProfile = null;
+let otherUsers = [];
+
+console.log("✅ peers.js loaded");
+
+/* ===============================
+   FIRESTORE HELPERS
+================================ */
+async function getCurrentUserProfile(uid) {
+  const snap = await getDoc(doc(db, "users", uid));
+  return snap.exists() ? snap.data() : null;
+}
+
+async function getOtherUsers(currentUid) {
+  const snapshot = await getDocs(collection(db, "users"));
+  const users = [];
+
+  snapshot.forEach(docSnap => {
+    if (docSnap.id !== currentUid) {
+      const data = docSnap.data();
+      users.push({
+        uid: docSnap.id,
+        name: data.name || "Unnamed",
+        hobbies: data.hobbies || [],
+        strengths: data.strengths || [],
+        weaknesses: data.weaknesses || []
+      });
+    }
+  });
+
+  return users;
+}
+
+/* ===============================
+   BACKEND (GEMINI) CALL
+================================ */
+async function fetchPeerMatches(userQuery = "") {
   try {
     const res = await fetch("http://localhost:5000/api/match-peers", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ query })
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        currentUser: currentUserProfile,
+        otherUsers,
+        userQuery
+      })
     });
 
     return await res.json();
-  } catch (error) {
-    console.error("❌ Failed to fetch peer matches:", error);
-    return [];
+  } catch (err) {
+    console.error("❌ Backend error:", err);
+    return { message: "Backend not reachable" };
   }
 }
 
-/* ---------- RENDER MATCH CARDS ---------- */
+/* ===============================
+   UI RENDERING
+================================ */
 function renderMatches(matches) {
   matchesGrid.innerHTML = "";
 
@@ -36,61 +90,75 @@ function renderMatches(matches) {
   }
 
   matches.forEach(user => {
-    const card = document.createElement("div");
-    card.className = "match-card";
-
-    card.innerHTML = `
-      <h3>${user.name}</h3>
-      <p>${user.reason || "Good match based on skills and interests."}</p>
-      <button class="connect-btn">Connect</button>
+    matchesGrid.innerHTML += `
+      <div class="match-card">
+        <h3>${user.name}</h3>
+        <p>${user.reason || "Good match based on skills and interests."}</p>
+        <button class="connect-btn">Connect</button>
+      </div>
     `;
-
-    matchesGrid.appendChild(card);
   });
 }
 
-/* ---------- INITIAL LOAD ---------- */
-(async function initialLoad() {
-  const response = await fetchPeerMatches();
+/* ===============================
+   AUTH GUARD + INITIAL LOAD
+================================ */
+onAuthStateChanged(auth, async user => {
+  console.log("🔥 AUTH STATE:", user);
 
-  // Backend ALWAYS returns array for matches
-  if (Array.isArray(response)) {
-    renderMatches(response);
+  if (!user) {
+    window.location.href = "login.html";
+    return;
   }
-})();
 
-/* ---------- CHAT HANDLER ---------- */
+  console.log("✅ Logged in as:", user.uid);
+
+  currentUserProfile = await getCurrentUserProfile(user.uid);
+  console.log("📄 Current user profile:", currentUserProfile);
+
+  otherUsers = await getOtherUsers(user.uid);
+  console.log("👥 Other users:", otherUsers);
+
+  const initialResponse = await fetchPeerMatches();
+
+  if (Array.isArray(initialResponse)) {
+    renderMatches(initialResponse);
+  }
+});
+
+/* ===============================
+   CHAT HANDLER (FINAL)
+================================ */
 sendBtn.addEventListener("click", async () => {
   const message = chatInput.value.trim();
   if (!message) return;
 
-  // Show user message
-  chatMessages.innerHTML += `
-    <p><strong>You:</strong> ${message}</p>
-  `;
-
+  chatMessages.innerHTML += `<p><b>You:</b> ${message}</p>`;
   chatInput.value = "";
 
   const response = await fetchPeerMatches(message);
+  console.log("🤖 Gemini response:", response);
 
-  // If backend returns matches
-  if (Array.isArray(response)) {
-    renderMatches(response);
-
-    chatMessages.innerHTML += `
-      <p><strong>Gemini:</strong>
-        Here are some peers that match your request.
-      </p>
-    `;
-  } else {
-    // Safety fallback (should not normally happen)
-    chatMessages.innerHTML += `
-      <p><strong>Gemini:</strong>
-        I couldn’t find suitable peers right now.
-      </p>
-    `;
+  /* TEXT RESPONSE (e.g. "Hi") */
+  if (response.message) {
+    matchesGrid.innerHTML = "";
+    chatMessages.innerHTML += `<p><b>Gemini:</b> ${response.message}</p>`;
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+    return;
   }
 
-  // Auto-scroll chat
+  /* PEER MATCHES */
+  if (Array.isArray(response) && response.length > 0) {
+    renderMatches(response);
+    chatMessages.innerHTML +=
+      `<p><b>Gemini:</b> Here are some peers you might like.</p>`;
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+    return;
+  }
+
+  /* NO MATCHES */
+  matchesGrid.innerHTML = `<p>No matching peers found.</p>`;
+  chatMessages.innerHTML +=
+    `<p><b>Gemini:</b> I couldn’t find a suitable peer.</p>`;
   chatMessages.scrollTop = chatMessages.scrollHeight;
 });

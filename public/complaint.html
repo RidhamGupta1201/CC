@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Raise a Complaint | Campus Connect</title>
+  <link rel="stylesheet" href="/public/css/complaint.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-left">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZjPQz1dcLf6_hIaTUYB7T8ooueoneymMzA-NllNr8_w&s" class="logo">
+    <span class="brand">CampusConnect</span>
+  </div>
+  <h2>Raise a Complaint</h2>
+</nav>
+
+<!-- Quote Page -->
+<section class="quote-page" id="quotePage">
+  <h1>“If you face it, dare to change it.”</h1>
+  <button id="openFormBtn">✋ Raise a Complaint</button>
+</section>
+
+<!-- Community Complaints -->
+<section class="all-complaints">
+  <h2>Community Complaints</h2>
+  <div id="complaintsList" class="complaints-grid"></div>
+</section>
+
+<!-- Complaint Form -->
+<section class="complaint-form hidden" id="complaintForm">
+  <div class="form-box">
+    <i class="fa-solid fa-arrow-left back-arrow" id="backBtn"></i>
+    <h2>Submit Your Complaint</h2>
+
+    <input id="subject" type="text" placeholder="Subject (Max 10 words)">
+    <input id="concern" type="text" placeholder="Whom it Concerns">
+    <textarea id="problem" placeholder="Describe the Problem"></textarea>
+    <textarea id="suggestion" placeholder="Your Suggestions"></textarea>
+
+    <button type="button" id="submitBtn">Submit</button>
+  </div>
+</section>
+
+<script src="/public/js/complaint.js"></script>
+</body>
+</html>

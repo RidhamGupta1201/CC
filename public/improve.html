@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Improve Us | CampusConnect</title>
+  <link rel="stylesheet" href="/public/css/improve.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-left">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZjPQz1dcLf6_hIaTUYB7T8ooueoneymMzA-NllNr8_w&s" class="logo">
+    <span class="brand">CampusConnect</span>
+  </div>
+  <h2>Improve Us</h2>
+</nav>
+
+<main class="container">
+
+  <h1>Rate Your Experience</h1>
+
+  <div class="stars" id="starContainer">
+    <i class="fa-solid fa-star" data-value="1"></i>
+    <i class="fa-solid fa-star" data-value="2"></i>
+    <i class="fa-solid fa-star" data-value="3"></i>
+    <i class="fa-solid fa-star" data-value="4"></i>
+    <i class="fa-solid fa-star" data-value="5"></i>
+  </div>
+
+  <div class="feedback-form hidden" id="feedbackForm">
+    <input type="text" id="problem" placeholder="What problem did you face?">
+    <textarea id="suggestion" placeholder="Your suggestion"></textarea>
+    <button id="submitFeedback">Submit</button>
+  </div>
+
+  <div class="thank-you hidden" id="thankYou">
+    <h2>Thanks for your feedback! 😊</h2>
+  </div>
+
+</main>
+
+<script src="/public/js/improve.js"></script>
+</body>
+</html>

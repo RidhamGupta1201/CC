@@ -1,0 +1,77 @@
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: radial-gradient(circle at top, #0f2a44, #020b18);
+  color: #e6f1ff;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 18px 40px;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0,170,255,0.2);
+}
+
+.logo {
+  width: 36px;
+  border-radius: 50%;
+}
+
+.container {
+  text-align: center;
+  margin-top: 100px;
+}
+
+.stars i {
+  font-size: 36px;
+  color: #334155;
+  margin: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.stars i.active {
+  color: gold;
+  transform: scale(1.2);
+}
+
+.feedback-form {
+  margin-top: 30px;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.feedback-form input,
+.feedback-form textarea {
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  background: #020b18;
+  color: white;
+  border: 1px solid rgba(0,170,255,0.3);
+}
+
+.feedback-form button {
+  background: linear-gradient(135deg, #0077ff, #00c6ff);
+  color: white;
+  padding: 10px;
+  border: none;
+  width: 100%;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.thank-you {
+  margin-top: 40px;
+  font-size: 24px;
+  color: #7dd3fc;
+}
+
+.hidden {
+  display: none;
+}

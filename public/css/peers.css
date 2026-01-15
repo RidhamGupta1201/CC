@@ -97,3 +97,27 @@ body {
   background: #6366f1;
   color: white;
 }
+/* MATCH CARD DESCRIPTION */
+.match-desc {
+  font-size: 14px;
+  color: #cbd5f5;
+  margin-top: 6px;
+  line-height: 1.5;
+}
+
+/* MATCH CARD HOVER */
+.match-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.match-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+}
+
+/* TAG VARIATION */
+.tag {
+  background: linear-gradient(135deg, #1e3a8a, #2563eb);
+  color: #e0e7ff;
+  font-weight: 500;
+}

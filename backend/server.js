@@ -19,25 +19,18 @@ app.get("/", (req, res) => {
 });
 
 /* =========================
-   GEMINI PEER MATCHING
+   PEER MATCHING API
 ========================= */
 app.post("/api/match-peers", async (req, res) => {
   try {
     const { currentUser, otherUsers, userQuery } = req.body;
 
-    // 🛑 BASIC VALIDATION
     if (!currentUser || !Array.isArray(otherUsers)) {
       return res.json([]);
     }
 
-    // 🔹 VERY SIMPLE PROMPT (NO RULES)
     const prompt = `
-You are a helpful AI assistant.
-
-If the user greets you (like "hi", "hello"), reply politely.
-
-If the user asks for peer matching, suggest suitable peers from the list
-based on skills, hobbies, strengths and weaknesses.
+You are a helpful AI assistant for peer matching.
 
 Current user:
 ${JSON.stringify(currentUser, null, 2)}
@@ -45,15 +38,15 @@ ${JSON.stringify(currentUser, null, 2)}
 Other users:
 ${JSON.stringify(otherUsers, null, 2)}
 
-User message:
+User query:
 "${userQuery || "find suitable peers"}"
 
-If peers are suggested, return JSON like:
+If greeting, reply politely as text.
+If peer matching, reply ONLY as JSON array:
+
 [
   { "uid": "", "name": "", "reason": "" }
 ]
-
-If it is just a greeting, reply with plain text.
 `;
 
     const response = await fetch(
@@ -62,41 +55,30 @@ If it is just a greeting, reply with plain text.
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          contents: [{ role: "user", parts: [{ text: prompt }] }]
+          contents: [{ parts: [{ text: prompt }] }]
         })
       }
     );
 
     const data = await response.json();
+    const text = data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
 
-    console.log("🔵 RAW GEMINI RESPONSE:", JSON.stringify(data, null, 2));
-
-    const text =
-      data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
-
-    if (!text) {
-      return res.json([]);
-    }
-
-    // 🔹 If Gemini replied with text (like "Hi!")
+    // Greeting case
     if (!text.trim().startsWith("[")) {
       return res.json({ message: text });
     }
 
-    // 🔹 Extract JSON array safely
     const match = text.match(/\[[\s\S]*\]/);
     if (!match) return res.json([]);
 
-    const parsed = JSON.parse(match[0]);
-    return res.json(parsed);
+    return res.json(JSON.parse(match[0]));
 
   } catch (err) {
     console.error("❌ Gemini error:", err);
-    return res.status(500).json([]);
+    res.status(500).json([]);
   }
 });
 
-/* ========================= */
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+  console.log(`🚀 Backend running on http://localhost:${PORT}`);
 });

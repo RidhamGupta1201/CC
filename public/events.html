@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CampusConnect | Events</title>
+  <link rel="stylesheet" href="/public/css/Events.css" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="events-nav">
+    <div class="nav-left">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZjPQz1dcLf6_hIaTUYB7T8ooueoneymMzA-NllNr8_w&s" class="logo">
+      <span class="brand">CampusConnect</span>
+    </div>
+
+    <div class="nav-center">Events</div>
+    <button class="history-btn">History</button>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="events-container">
+
+    <!-- ONGOING EVENTS -->
+    <section class="event-section">
+      <h2>🔥 Ongoing Events</h2>
+      <div class="event-grid">
+        <div class="event-card">
+          <span class="tag recommended">Recommended</span>
+          <span class="tag category tech">Technical</span>
+          <h3>AI Hackathon 2025</h3>
+          <p class="date">📅 10 – 12 Feb 2025</p>
+          <p class="college">🏫 ABC Engineering College</p>
+          <p class="coordinator">👤 Tech Club</p>
+          <p class="description">
+            48-hour hackathon focused on AI and ML.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- UPCOMING EVENTS -->
+    <section class="event-section">
+      <h2>📅 Upcoming Events</h2>
+      <div class="event-grid" id="upcomingEvents"></div>
+    </section>
+
+  </main>
+
+  <!-- ADD EVENT BUTTON -->
+  <button class="add-event-btn" id="openEventForm">＋</button>
+
+  <!-- ADD EVENT MODAL -->
+  <div class="modal hidden" id="eventModal">
+    <div class="modal-box">
+      <h3>Add Upcoming Event</h3>
+
+      <input id="eventName" placeholder="Event Name" />
+      <input id="eventDate" placeholder="Event Date (e.g. 20 March 2025)" />
+      <input id="eventCollege" placeholder="College Name" />
+      <input id="eventCoordinator" placeholder="Coordinator / Club" />
+      <select id="eventCategory">
+        <option value="tech">Technical</option>
+        <option value="cultural">Cultural</option>
+        <option value="literary">Literary</option>
+      </select>
+      <textarea id="eventDesc" placeholder="Event Description"></textarea>
+
+      <div class="modal-actions">
+        <button id="saveEvent">Save</button>
+        <button id="closeEventForm">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/public/js/events.js"></script>
+</body>
+</html>
